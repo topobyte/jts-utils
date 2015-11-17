@@ -18,6 +18,7 @@
 package de.topobyte.jts.utils.predicate;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
@@ -56,6 +57,42 @@ public class ContainmentTestJts implements ContainmentTest
 	public boolean contains(Point point)
 	{
 		return geometry.contains(point);
+	}
+
+	@Override
+	public boolean covers(Envelope envelope)
+	{
+		return geometry.covers(factory.toGeometry(envelope));
+	}
+
+	@Override
+	public boolean contains(Envelope envelope)
+	{
+		return geometry.contains(factory.toGeometry(envelope));
+	}
+
+	@Override
+	public boolean covers(Geometry geometry)
+	{
+		return this.geometry.covers(geometry);
+	}
+
+	@Override
+	public boolean contains(Geometry geometry)
+	{
+		return this.geometry.contains(geometry);
+	}
+
+	@Override
+	public boolean intersects(Envelope envelope)
+	{
+		return geometry.intersects(factory.toGeometry(envelope));
+	}
+
+	@Override
+	public boolean intersects(Geometry geometry)
+	{
+		return geometry.intersects(geometry);
 	}
 
 }

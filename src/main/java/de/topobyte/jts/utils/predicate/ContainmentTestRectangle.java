@@ -19,6 +19,8 @@ package de.topobyte.jts.utils.predicate;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 
 public class ContainmentTestRectangle implements ContainmentTest
@@ -28,6 +30,8 @@ public class ContainmentTestRectangle implements ContainmentTest
 	private double maxX;
 	private double minY;
 	private double maxY;
+
+	private Geometry box = null;
 
 	public ContainmentTestRectangle(double minX, double minY, double maxX,
 			double maxY)
@@ -44,6 +48,14 @@ public class ContainmentTestRectangle implements ContainmentTest
 		this.maxX = envelope.getMaxX();
 		this.minY = envelope.getMinY();
 		this.maxY = envelope.getMaxY();
+	}
+
+	private void initBox()
+	{
+		if (box == null) {
+			GeometryFactory factory = new GeometryFactory();
+			box = factory.toGeometry(new Envelope(minX, maxX, minY, maxY));
+		}
 	}
 
 	@Override
@@ -86,6 +98,48 @@ public class ContainmentTestRectangle implements ContainmentTest
 	private boolean contains(double x, double y)
 	{
 		return x > minX && x < maxX && y > minY && y < maxY;
+	}
+
+	@Override
+	public boolean covers(Envelope env)
+	{
+		return env.getMinX() >= minX && env.getMaxX() <= maxX
+				&& env.getMinY() >= minY && env.getMaxY() <= maxY;
+	}
+
+	@Override
+	public boolean contains(Envelope env)
+	{
+		return env.getMinX() > minX && env.getMaxX() < maxX
+				&& env.getMinY() > minY && env.getMaxY() < maxY;
+	}
+
+	@Override
+	public boolean covers(Geometry geometry)
+	{
+		initBox();
+		return box.covers(geometry);
+	}
+
+	@Override
+	public boolean contains(Geometry geometry)
+	{
+		initBox();
+		return box.contains(geometry);
+	}
+
+	@Override
+	public boolean intersects(Envelope env)
+	{
+		return env.getMinX() <= maxX && env.getMaxX() >= minX
+				&& env.getMinY() <= maxY && env.getMaxY() >= minY;
+	}
+
+	@Override
+	public boolean intersects(Geometry geometry)
+	{
+		initBox();
+		return box.intersects(geometry);
 	}
 
 }

@@ -18,6 +18,8 @@
 package de.topobyte.jts.utils.predicate;
 
 import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Envelope;
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
 
 public interface ContainmentTest
@@ -42,5 +44,35 @@ public interface ContainmentTest
 	 * Test for containment. Excludes the boundary of geometric objects.
 	 */
 	public boolean contains(Point point);
+
+	/**
+	 * Test for coverage. Includes the boundary of geometric objects.
+	 */
+	public boolean covers(Envelope envelope);
+
+	/**
+	 * Test for containment. Excludes the boundary of geometric objects.
+	 */
+	public boolean contains(Envelope envelope);
+
+	/**
+	 * Test for coverage. Includes the boundary of geometric objects.
+	 */
+	public boolean covers(Geometry geometry);
+
+	/**
+	 * Test for containment. Excludes the boundary of geometric objects.
+	 */
+	public boolean contains(Geometry geometry);
+
+	/**
+	 * Test for intersection.
+	 */
+	public boolean intersects(Geometry geometry);
+
+	/**
+	 * Test for intersection.
+	 */
+	public boolean intersects(Envelope envelope);
 
 }
