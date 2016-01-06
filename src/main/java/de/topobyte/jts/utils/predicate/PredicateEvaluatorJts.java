@@ -23,7 +23,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 
-public class PredicateEvaluatorJts implements PredicateEvaluator
+public class PredicateEvaluatorJts extends AbstractPredicateEvaluator
 {
 
 	private GeometryFactory factory;
@@ -72,13 +72,13 @@ public class PredicateEvaluatorJts implements PredicateEvaluator
 	}
 
 	@Override
-	public boolean covers(Geometry geometry)
+	public boolean coversNonCollection(Geometry geometry)
 	{
 		return this.geometry.covers(geometry);
 	}
 
 	@Override
-	public boolean contains(Geometry geometry)
+	public boolean containsNonCollection(Geometry geometry)
 	{
 		return this.geometry.contains(geometry);
 	}
@@ -90,7 +90,7 @@ public class PredicateEvaluatorJts implements PredicateEvaluator
 	}
 
 	@Override
-	public boolean intersects(Geometry geometry)
+	public boolean intersectsNonCollection(Geometry geometry)
 	{
 		return geometry.intersects(geometry);
 	}

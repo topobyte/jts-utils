@@ -25,7 +25,7 @@ import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygonal;
 import com.vividsolutions.jts.geom.prep.PreparedPolygon;
 
-public class PredicateEvaluatorPrepared implements PredicateEvaluator
+public class PredicateEvaluatorPrepared extends AbstractPredicateEvaluator
 {
 
 	private GeometryFactory factory;
@@ -74,13 +74,13 @@ public class PredicateEvaluatorPrepared implements PredicateEvaluator
 	}
 
 	@Override
-	public boolean covers(Geometry geometry)
+	public boolean coversNonCollection(Geometry geometry)
 	{
 		return preparedPolygon.covers(geometry);
 	}
 
 	@Override
-	public boolean contains(Geometry geometry)
+	public boolean containsNonCollection(Geometry geometry)
 	{
 		return preparedPolygon.contains(geometry);
 	}
@@ -92,7 +92,7 @@ public class PredicateEvaluatorPrepared implements PredicateEvaluator
 	}
 
 	@Override
-	public boolean intersects(Geometry geometry)
+	public boolean intersectsNonCollection(Geometry geometry)
 	{
 		return preparedPolygon.intersects(geometry);
 	}

@@ -23,7 +23,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 
-public class PredicateEvaluatorRectangle implements PredicateEvaluator
+public class PredicateEvaluatorRectangle extends AbstractPredicateEvaluator
 {
 
 	private double minX;
@@ -115,14 +115,14 @@ public class PredicateEvaluatorRectangle implements PredicateEvaluator
 	}
 
 	@Override
-	public boolean covers(Geometry geometry)
+	public boolean coversNonCollection(Geometry geometry)
 	{
 		initBox();
 		return box.covers(geometry);
 	}
 
 	@Override
-	public boolean contains(Geometry geometry)
+	public boolean containsNonCollection(Geometry geometry)
 	{
 		initBox();
 		return box.contains(geometry);
@@ -136,7 +136,7 @@ public class PredicateEvaluatorRectangle implements PredicateEvaluator
 	}
 
 	@Override
-	public boolean intersects(Geometry geometry)
+	public boolean intersectsNonCollection(Geometry geometry)
 	{
 		initBox();
 		return box.intersects(geometry);
