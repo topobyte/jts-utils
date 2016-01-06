@@ -23,7 +23,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 
-public class ContainmentTestRectangle implements ContainmentTest
+public class PredicateEvaluatorRectangle implements PredicateEvaluator
 {
 
 	private double minX;
@@ -33,7 +33,7 @@ public class ContainmentTestRectangle implements ContainmentTest
 
 	private Geometry box = null;
 
-	public ContainmentTestRectangle(double minX, double minY, double maxX,
+	public PredicateEvaluatorRectangle(double minX, double minY, double maxX,
 			double maxY)
 	{
 		this.minX = minX;
@@ -42,7 +42,7 @@ public class ContainmentTestRectangle implements ContainmentTest
 		this.maxY = maxY;
 	}
 
-	public ContainmentTestRectangle(Envelope envelope)
+	public PredicateEvaluatorRectangle(Envelope envelope)
 	{
 		this.minX = envelope.getMinX();
 		this.maxX = envelope.getMaxX();

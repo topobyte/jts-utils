@@ -19,14 +19,13 @@ package de.topobyte.jts.utils.predicate;
 
 import com.vividsolutions.jts.geom.Geometry;
 
-public class ContainmentTestFactoryJtsPrepared implements
-		ContainmentTestFactory
+public class PredicateEvaluatorFactoryJts implements PredicateEvaluatorFactory
 {
 
 	@Override
-	public ContainmentTest createContainmentTest(Geometry geometry)
+	public PredicateEvaluator createPredicateEvaluator(Geometry geometry)
 	{
-		return new ContainmentTestJtsPrepared(geometry);
+		return new PredicateEvaluatorJts(geometry);
 	}
 
 }

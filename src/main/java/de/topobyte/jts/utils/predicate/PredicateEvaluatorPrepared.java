@@ -22,17 +22,19 @@ import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Polygonal;
+import com.vividsolutions.jts.geom.prep.PreparedPolygon;
 
-public class ContainmentTestJts implements ContainmentTest
+public class PredicateEvaluatorPrepared implements PredicateEvaluator
 {
 
 	private GeometryFactory factory;
-	private Geometry geometry;
+	private PreparedPolygon preparedPolygon;
 
-	public ContainmentTestJts(Geometry geometry)
+	public PredicateEvaluatorPrepared(Geometry geometry)
 	{
 		factory = new GeometryFactory();
-		this.geometry = geometry;
+		preparedPolygon = new PreparedPolygon((Polygonal) geometry);
 	}
 
 	@Override
@@ -50,49 +52,49 @@ public class ContainmentTestJts implements ContainmentTest
 	@Override
 	public boolean covers(Point point)
 	{
-		return geometry.covers(point);
+		return preparedPolygon.covers(point);
 	}
 
 	@Override
 	public boolean contains(Point point)
 	{
-		return geometry.contains(point);
+		return preparedPolygon.contains(point);
 	}
 
 	@Override
 	public boolean covers(Envelope envelope)
 	{
-		return geometry.covers(factory.toGeometry(envelope));
+		return preparedPolygon.covers(factory.toGeometry(envelope));
 	}
 
 	@Override
 	public boolean contains(Envelope envelope)
 	{
-		return geometry.contains(factory.toGeometry(envelope));
+		return preparedPolygon.contains(factory.toGeometry(envelope));
 	}
 
 	@Override
 	public boolean covers(Geometry geometry)
 	{
-		return this.geometry.covers(geometry);
+		return preparedPolygon.covers(geometry);
 	}
 
 	@Override
 	public boolean contains(Geometry geometry)
 	{
-		return this.geometry.contains(geometry);
+		return preparedPolygon.contains(geometry);
 	}
 
 	@Override
 	public boolean intersects(Envelope envelope)
 	{
-		return geometry.intersects(factory.toGeometry(envelope));
+		return preparedPolygon.intersects(factory.toGeometry(envelope));
 	}
 
 	@Override
 	public boolean intersects(Geometry geometry)
 	{
-		return geometry.intersects(geometry);
+		return preparedPolygon.intersects(geometry);
 	}
 
 }

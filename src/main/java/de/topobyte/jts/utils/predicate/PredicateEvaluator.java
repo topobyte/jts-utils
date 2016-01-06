@@ -22,7 +22,7 @@ import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
 
-public interface ContainmentTest
+public interface PredicateEvaluator
 {
 
 	/**
