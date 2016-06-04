@@ -105,7 +105,7 @@ public class SelfIntersectionUtil
 		Set<LinearRing> rings = new HashSet<>();
 
 		// Build a list of line segments of the ring
-		List<LineSegment> ringSegs = new ArrayList<LineSegment>();
+		List<LineSegment> ringSegs = new ArrayList<>();
 		CoordinateSequence seq = input.getCoordinateSequence();
 		for (int i = 0; i < input.getNumPoints() - 1; i++) {
 			Coordinate a = seq.getCoordinate(i);
