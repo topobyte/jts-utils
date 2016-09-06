@@ -27,6 +27,7 @@ import com.vividsolutions.jts.geom.CoordinateSequence;
 import com.vividsolutions.jts.geom.CoordinateSequenceFactory;
 import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryCollection;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
@@ -225,6 +226,19 @@ public class JtsHelper
 			bboxEnvelope.expandToInclude(envelope);
 		}
 		return bboxEnvelope;
+	}
+
+	/**
+	 * Create a GeometryCollection of the specified list of geometries.
+	 * 
+	 * @param geometries
+	 *            the list of geometries
+	 * @return a new GeometryCollection
+	 */
+	public static GeometryCollection collection(List<Geometry> geometries)
+	{
+		return new GeometryFactory().createGeometryCollection(geometries
+				.toArray(new Geometry[geometries.size()]));
 	}
 
 }
