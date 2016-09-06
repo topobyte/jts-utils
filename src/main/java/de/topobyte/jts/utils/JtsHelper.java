@@ -20,11 +20,13 @@ package de.topobyte.jts.utils;
 import gnu.trove.list.TDoubleList;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.vividsolutions.jts.geom.CoordinateSequence;
 import com.vividsolutions.jts.geom.CoordinateSequenceFactory;
 import com.vividsolutions.jts.geom.Envelope;
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
@@ -206,6 +208,23 @@ public class JtsHelper
 		Envelope copy = new Envelope(envelope);
 		copy.expandBy(copy.getWidth() * ratio, copy.getHeight() * ratio);
 		return copy;
+	}
+
+	/**
+	 * Calculate the bounding box of the given collection of geometries.
+	 * 
+	 * @param geometries
+	 *            the geometries to calculate a bounding box for.
+	 * @return the bounding box as an envelope
+	 */
+	public static Envelope getEnvelope(Collection<Geometry> geometries)
+	{
+		Envelope bboxEnvelope = new Envelope();
+		for (Geometry geom : geometries) {
+			Envelope envelope = geom.getEnvelopeInternal();
+			bboxEnvelope.expandToInclude(envelope);
+		}
+		return bboxEnvelope;
 	}
 
 }
