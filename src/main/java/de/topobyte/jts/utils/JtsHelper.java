@@ -19,13 +19,16 @@ package de.topobyte.jts.utils;
 
 import gnu.trove.list.TDoubleList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vividsolutions.jts.geom.CoordinateSequence;
 import com.vividsolutions.jts.geom.CoordinateSequenceFactory;
+import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
+import com.vividsolutions.jts.geom.Polygon;
 
 /**
  * Various utility methods for JTS.
@@ -163,6 +166,46 @@ public class JtsHelper
 		}
 		LinearRing ring = factory.createLinearRing(coords);
 		return ring;
+	}
+
+	/**
+	 * Convert an envelope to a polygon.
+	 * 
+	 * @param envelope
+	 *            the envelope to convert.
+	 * @return the resulting polygon.
+	 */
+	public static Polygon toGeometry(Envelope envelope)
+	{
+		List<Double> xs = new ArrayList<>(4);
+		List<Double> ys = new ArrayList<>(4);
+		xs.add(envelope.getMinX());
+		xs.add(envelope.getMaxX());
+		xs.add(envelope.getMaxX());
+		xs.add(envelope.getMinX());
+		ys.add(envelope.getMinY());
+		ys.add(envelope.getMinY());
+		ys.add(envelope.getMaxY());
+		ys.add(envelope.getMaxY());
+		LinearRing ring = toLinearRing(xs, ys, false);
+		return ring.getFactory().createPolygon(ring, null);
+	}
+
+	/**
+	 * Create a copy of this envelope whose extend is in each direction bigger
+	 * as much as width * ratio or height * ratio respectively.
+	 * 
+	 * @param envelope
+	 *            the envelope to extend.
+	 * @param ratio
+	 *            the ratio with which to extend.
+	 * @return a new envelope.
+	 */
+	public static Envelope expandBy(Envelope envelope, double ratio)
+	{
+		Envelope copy = new Envelope(envelope);
+		copy.expandBy(copy.getWidth() * ratio, copy.getHeight() * ratio);
+		return copy;
 	}
 
 }
