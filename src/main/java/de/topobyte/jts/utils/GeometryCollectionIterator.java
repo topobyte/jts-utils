@@ -27,8 +27,7 @@ import com.vividsolutions.jts.geom.GeometryCollection;
  * Just for convenience since the GeometryCollection does not implements
  * Iterable itself.
  * 
- * @author Sebastian Kuerten (sebastian.kuerten@fu-berlin.de)
- * 
+ * @author Sebastian Kuerten (sebastian@topobyte.de)
  */
 public class GeometryCollectionIterator implements Iterable<Geometry>,
 		Iterator<Geometry>
