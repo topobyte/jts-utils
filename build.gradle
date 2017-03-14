@@ -29,8 +29,9 @@ dependencies {
     compile 'net.sf.trove4j:trove4j:3.0.3'
 
     compile 'org.slf4j:slf4j-api:1.6.1'
-    runtime 'org.slf4j:slf4j-log4j12:1.6.1'
-    runtime 'log4j:log4j:1.2.16'
+
+    testRuntime 'org.slf4j:slf4j-log4j12:1.6.1'
+    testRuntime 'log4j:log4j:1.2.16'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
