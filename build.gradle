@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    compile 'de.topobyte:adt-graph:0.0.3'
+    compile 'de.topobyte:adt-graph:0.0.4'
     compile 'de.topobyte:jgs:0.0.1'
 
     compile 'com.vividsolutions:jts:1.13'
