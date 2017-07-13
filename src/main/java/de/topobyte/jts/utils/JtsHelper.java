@@ -17,7 +17,7 @@
 
 package de.topobyte.jts.utils;
 
-import gnu.trove.list.TDoubleList;
+import com.slimjars.dist.gnu.trove.list.TDoubleList;
 
 import java.util.ArrayList;
 import java.util.Collection;

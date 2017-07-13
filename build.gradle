@@ -18,6 +18,9 @@ repositories {
     maven {
         url 'http://mvn.topobyte.de'
     }
+    maven {
+        url 'http://mvn.slimjars.com'
+    }
     mavenCentral()
 }
 
@@ -26,7 +29,7 @@ dependencies {
     compile 'de.topobyte:jgs:0.0.1'
 
     compile 'com.vividsolutions:jts:1.13'
-    compile 'net.sf.trove4j:trove4j:3.0.3'
+    compile 'com.slimjars.trove4j:trove4j-double-array-list:1.0.1'
 
     compile 'org.slf4j:slf4j-api:1.6.1'
 
