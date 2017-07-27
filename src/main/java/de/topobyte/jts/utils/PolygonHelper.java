@@ -28,6 +28,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.MultiPolygon;
@@ -59,6 +60,34 @@ public class PolygonHelper
 			GeometryFactory factory)
 	{
 		return new Polygon(shell, null, factory);
+	}
+
+	/**
+	 * Removes holes from a Polygon or MultiPolygon. Given an input polygon p,
+	 * construct a new polygon that is the union of all exterior rings of p.
+	 */
+	public static Geometry hull(Geometry geometry)
+	{
+		GeometryFactory factory = geometry.getFactory();
+		if (geometry instanceof Polygon) {
+			Polygon polygon = (Polygon) geometry;
+			LinearRing ring = (LinearRing) polygon.getExteriorRing();
+			return factory.createPolygon(ring, null);
+		} else if (geometry instanceof MultiPolygon) {
+			MultiPolygon mp = (MultiPolygon) geometry;
+			Geometry all = null;
+			for (int i = 0; i < mp.getNumGeometries(); i++) {
+				Geometry child = mp.getGeometryN(i);
+				Geometry childHull = hull(child);
+				if (all == null) {
+					all = childHull;
+				} else {
+					all = all.union(childHull);
+				}
+			}
+			return all;
+		}
+		return null;
 	}
 
 	/**
