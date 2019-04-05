@@ -164,4 +164,20 @@ public class PolygonHelper
 		return new MultiPolygon(ps, factory);
 	}
 
+	/**
+	 * Unpack the specified multipolygon. If it has only one child, return a
+	 * Polygon, a MultiPolygon otherwise.
+	 * 
+	 * @param mp
+	 *            the input MultiPolygon.
+	 * @return a polygonal object.
+	 */
+	public static Geometry unpackMultipolygon(MultiPolygon mp)
+	{
+		if (mp.getNumGeometries() == 1) {
+			return mp.getGeometryN(0);
+		}
+		return mp;
+	}
+
 }
