@@ -24,6 +24,9 @@ repositories {
     mavenCentral()
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 dependencies {
     compile 'de.topobyte:adt-graph:0.0.6'
     compile 'de.topobyte:jgs:0.0.1'
