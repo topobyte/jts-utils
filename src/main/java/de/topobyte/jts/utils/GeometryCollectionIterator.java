@@ -19,8 +19,8 @@ package de.topobyte.jts.utils;
 
 import java.util.Iterator;
 
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryCollection;
+import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryCollection;
 
 /**
  * An iterator that allows to iterate over the elements of GeometryCollection.
