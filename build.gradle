@@ -31,7 +31,7 @@ dependencies {
     compile 'de.topobyte:adt-graph:0.0.6'
     compile 'de.topobyte:jgs:0.0.1'
 
-    compile 'com.vividsolutions:jts:1.13'
+    compile 'org.locationtech.jts:jts-core:1.16.1'
     compile 'com.slimjars.trove4j:trove4j-double-array-list:1.0.1'
 
     compile 'org.slf4j:slf4j-api:1.6.1'
