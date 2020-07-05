@@ -22,19 +22,24 @@ import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.geom.Polygonal;
-import org.locationtech.jts.geom.prep.PreparedPolygon;
+import org.locationtech.jts.geom.prep.PreparedGeometry;
+import org.locationtech.jts.geom.prep.PreparedGeometryFactory;
 
 public class PredicateEvaluatorPrepared extends AbstractPredicateEvaluator
 {
 
 	private GeometryFactory factory;
-	private PreparedPolygon preparedPolygon;
+	private PreparedGeometry geometry;
 
 	public PredicateEvaluatorPrepared(Geometry geometry)
 	{
 		factory = new GeometryFactory();
-		preparedPolygon = new PreparedPolygon((Polygonal) geometry);
+		this.geometry = PreparedGeometryFactory.prepare(geometry);
+	}
+
+	public PredicateEvaluatorPrepared(PreparedGeometry geometry)
+	{
+		this.geometry = geometry;
 	}
 
 	@Override
@@ -52,49 +57,49 @@ public class PredicateEvaluatorPrepared extends AbstractPredicateEvaluator
 	@Override
 	public boolean covers(Point point)
 	{
-		return preparedPolygon.covers(point);
+		return geometry.covers(point);
 	}
 
 	@Override
 	public boolean contains(Point point)
 	{
-		return preparedPolygon.contains(point);
+		return geometry.contains(point);
 	}
 
 	@Override
 	public boolean covers(Envelope envelope)
 	{
-		return preparedPolygon.covers(factory.toGeometry(envelope));
+		return geometry.covers(factory.toGeometry(envelope));
 	}
 
 	@Override
 	public boolean contains(Envelope envelope)
 	{
-		return preparedPolygon.contains(factory.toGeometry(envelope));
+		return geometry.contains(factory.toGeometry(envelope));
 	}
 
 	@Override
 	public boolean coversNonCollection(Geometry geometry)
 	{
-		return preparedPolygon.covers(geometry);
+		return geometry.covers(geometry);
 	}
 
 	@Override
 	public boolean containsNonCollection(Geometry geometry)
 	{
-		return preparedPolygon.contains(geometry);
+		return geometry.contains(geometry);
 	}
 
 	@Override
 	public boolean intersects(Envelope envelope)
 	{
-		return preparedPolygon.intersects(factory.toGeometry(envelope));
+		return geometry.intersects(factory.toGeometry(envelope));
 	}
 
 	@Override
 	public boolean intersectsNonCollection(Geometry geometry)
 	{
-		return preparedPolygon.intersects(geometry);
+		return geometry.intersects(geometry);
 	}
 
 }
