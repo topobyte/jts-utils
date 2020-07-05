@@ -82,13 +82,13 @@ public class PredicateEvaluatorPrepared extends AbstractPredicateEvaluator
 	@Override
 	public boolean coversNonCollection(Geometry geometry)
 	{
-		return geometry.covers(geometry);
+		return this.geometry.covers(geometry);
 	}
 
 	@Override
 	public boolean containsNonCollection(Geometry geometry)
 	{
-		return geometry.contains(geometry);
+		return this.geometry.contains(geometry);
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class PredicateEvaluatorPrepared extends AbstractPredicateEvaluator
 	@Override
 	public boolean intersectsNonCollection(Geometry geometry)
 	{
-		return geometry.intersects(geometry);
+		return this.geometry.intersects(geometry);
 	}
 
 }
