@@ -33,13 +33,14 @@ public class PredicateEvaluatorPrepared extends AbstractPredicateEvaluator
 
 	public PredicateEvaluatorPrepared(Geometry geometry)
 	{
-		factory = new GeometryFactory();
 		this.geometry = PreparedGeometryFactory.prepare(geometry);
+		factory = new GeometryFactory();
 	}
 
 	public PredicateEvaluatorPrepared(PreparedGeometry geometry)
 	{
 		this.geometry = geometry;
+		factory = new GeometryFactory();
 	}
 
 	@Override
