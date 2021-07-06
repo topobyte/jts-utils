@@ -25,14 +25,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
+import org.locationtech.jts.geom.Polygonal;
+import org.locationtech.jts.operation.union.CascadedPolygonUnion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.topobyte.adt.graph.Graph;
 
@@ -178,6 +180,36 @@ public class PolygonHelper
 			return mp.getGeometryN(0);
 		}
 		return mp;
+	}
+
+	/**
+	 * Returns only the polygonal parts of a geometry. If the argument is a
+	 * GeometryCollection, the union of its polygonal parts will be computed and
+	 * returned. If the argument is not polygonal and does not contain any
+	 * polygonal parts, null will be returned.
+	 */
+	public static Geometry polygonal(Geometry geometry)
+	{
+		if (geometry instanceof Polygonal) {
+			return geometry;
+		}
+		if (geometry instanceof GeometryCollection) {
+			List<Geometry> parts = new ArrayList<>();
+			GeometryCollectionIterator iterator = new GeometryCollectionIterator(
+					(GeometryCollection) geometry);
+			for (Geometry part : iterator) {
+				if (part instanceof Polygonal) {
+					parts.add(part);
+				}
+			}
+
+			CascadedPolygonUnion union = new CascadedPolygonUnion(parts);
+			Geometry result = union.union();
+			if (result instanceof Polygonal) {
+				return result;
+			}
+		}
+		return null;
 	}
 
 }
