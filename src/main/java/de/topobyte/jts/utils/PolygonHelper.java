@@ -138,12 +138,9 @@ public class PolygonHelper
 			candidates.addAll(rings);
 			candidates.remove(r);
 			Polygon p1 = ringToPolygon.get(r);
-			for (LinearRing c : candidates) {
-				Polygon p2 = ringToPolygon.get(c);
-				if (p1.contains(p2)) {
-					graph.addEdge(r, c);
-				}
-			}
+			candidates.parallelStream().
+					filter(c -> p1.contains(ringToPolygon.get(c))).
+					forEach(c -> graph.addEdge(r, c));
 		}
 
 		// Assemble polygons with holes based on degree of the nodes
