@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
@@ -138,9 +139,9 @@ public class PolygonHelper
 			candidates.addAll(rings);
 			candidates.remove(r);
 			Polygon p1 = ringToPolygon.get(r);
-			candidates.parallelStream().
-					filter(c -> p1.contains(ringToPolygon.get(c))).
-					forEach(c -> graph.addEdge(r, c));
+			List<LinearRing> containedRings = candidates.parallelStream().
+					filter(c -> p1.contains(ringToPolygon.get(c))).collect(Collectors.toList());
+			containedRings.forEach(c -> graph.addEdge(r, c));
 		}
 
 		// Assemble polygons with holes based on degree of the nodes
