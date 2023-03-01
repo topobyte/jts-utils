@@ -138,9 +138,9 @@ public class PolygonHelper
 			Set<LinearRing> candidates = new HashSet<>();
 			candidates.addAll(rings);
 			candidates.remove(r);
-			Polygon p1 = ringToPolygon.get(r);
+			Polygon p = ringToPolygon.get(r);
 			List<LinearRing> containedRings = candidates.parallelStream().
-					filter(c -> p1.contains(ringToPolygon.get(c))).collect(Collectors.toList());
+					filter(c -> p.contains(ringToPolygon.get(c))).collect(Collectors.toList());
 			containedRings.forEach(c -> graph.addEdge(r, c));
 		}
 
